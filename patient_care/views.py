@@ -70,7 +70,7 @@ class MeasureUpdateView(UpdateView):
 
 class MeasureDeleteView(DeleteView):
     model = models.Measure
-    success_url = reverse_lazy('recipes-home')
+    success_url = reverse_lazy('patient-care-home')
 
 
 class UnitDetailView(DetailView):
@@ -103,7 +103,7 @@ class UnitListView(ListView):
 
 class UnitDeleteView(DeleteView):
     model = models.Unit
-    success_url = 'patient-care-home'
+    success_url = reverse_lazy('patient-care-home')
 
 
 def calculate_insulin(request):
