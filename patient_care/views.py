@@ -41,15 +41,25 @@ class MeasureListView(ListView):
 
 
 class MeasureCreateView(CreateView):
-    model = models.Patient
+    model = models.Measure
+    fields = ['name', 'unit']
+
+
+class PatientMeasureCreateView(CreateView):
+    model = models.PatientMeasure
     fields = ['name', 'quantity', 'unit']
 
 
-class MeasureUpdateView(CreateView):
-    model = models.Patient
+class MeasureUpdateView(UpdateView):
+    model = models.Measure
     fields = ['name', 'quantity', 'unit']
 
 
 class MeasureDeleteView(DeleteView):
     model = models.Measure
     success_url = reverse_lazy('recipes-home')
+
+
+class UnitCreateView(CreateView):
+    model = models.Unit
+    fields = ['name']

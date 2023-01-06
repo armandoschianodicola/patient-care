@@ -20,15 +20,16 @@ class Patient(TimeStampedModel, models.Model):
         return reverse('patient-detail', kwargs={'pk': self.pk})
 
 
-class Measure(models.Model):
+class Unit(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-class Unit(models.Model):
+class Measure(models.Model):
     name = models.CharField(max_length=100)
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -38,4 +39,3 @@ class PatientMeasure(TimeStampedModel, models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     measure = models.ForeignKey(Measure, on_delete=models.CASCADE)
     quantity = models.FloatField()
-    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
