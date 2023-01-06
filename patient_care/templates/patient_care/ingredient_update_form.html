@@ -1,0 +1,12 @@
+{% extends 'registration/navbar.html' %}
+
+{% block content %}
+  <div class="container mt-3">
+    <form method="POST" class="card p-3 mt-5">
+      {% csrf_token %}
+      <fieldset>
+        {{ form.as_p }}
+      </fieldset>
+    </form>
+  </div>
+{% endblock content %}

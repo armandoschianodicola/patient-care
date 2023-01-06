@@ -1,0 +1,16 @@
+{% extends 'registration/navbar.html' %}
+
+{% block content %}
+  <div>
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset>
+        <legend>Sei sicuro di voler cancellare {{object}} ?</legend>
+        {{ form }}
+      </fieldset>
+      <div>
+        <input type="submit" value="Cancella">
+      </div>
+    </form>
+  </div>
+{% endblock content %}

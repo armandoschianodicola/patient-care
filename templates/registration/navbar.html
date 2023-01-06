@@ -28,11 +28,21 @@
           Unità di Misura
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'calc-insulin' %}"
-          >
-          Calcolo Insulina
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+        Alimentazione
         </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'ingredient-list' %}">Ingredienti</a>
+          <a class="dropdown-item" href="{% url 'calc-insulin' %}">Calcolo Insulina</a>
+        </div>
       </li>
     </ul>
   </div>

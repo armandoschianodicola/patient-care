@@ -19,4 +19,10 @@ urlpatterns = [
     path('patient/<int:pk>/measures/list', views.PatientMeasureListView.as_view(), name='patient-measure-list'),
     path('patient/<int:pk>/measures/create', views.PatientMeasureCreateView.as_view(), name='patient-measure-create'),
     path('calc/insulin/', views.calculate_insulin, name='calc-insulin'),
+    path('ingredient/<int:ingredient_id>/info/', views.get_ingredient_info, name='ingredient-info'),
+    path('ingredient/', views.IngredientListView.as_view(), name='ingredient-list'),
+    path('ingredient/create', views.IngredientCreateView.as_view(), name='ingredient-create'),
+    path('ingredient/<int:pk>/', views.IngredientDetailView.as_view(), name='ingredient-detail'),
+    path('ingredient/<int:pk>/', views.IngredientUpdateView.as_view(), name='ingredient-update'),
+    path('ingredient/<int:pk>/delete/', views.IngredientDeleteView.as_view(), name='ingredient-delete'),
 ]

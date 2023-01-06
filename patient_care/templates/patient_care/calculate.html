@@ -1,7 +1,27 @@
-{% extends 'registration/navbar.html' %}
+{% extends 'registration/navbar.html' %} {% block content %}
+<div class="container">
+  <form id="apiform" method="POST">
+    {% csrf_token %}
 
-{% block content %}
-  <div class="container mt-3">
-    
+    <label for="username">Seleziona Categoria</label>
+    <select name="cat" id="cat">
+      <option value="ingredients">Ingrediente</option>
+      <option value="recipes">Ricetta</option>
+      <option value="menuItems">Menu</option>
+      <option value="products">Prodotto</option>
+    </select>
+
+    <label for="username">Search</label>
+    <input type="search" id="query" name="query" />
+
+    <button type="submit">Submit</button>
+  </form>
+  <div class="list-group">
+    {% for result in results %}
+    <a href="{% url 'ingredient-info' result.id%}" class="list-group-item list-group-item-action"
+      >{{result.name}} <button class="btn btn-primary mt-3">Richiedi Info</button></a
+    >
+    {% endfor %}
   </div>
+</div>
 {% endblock content %}

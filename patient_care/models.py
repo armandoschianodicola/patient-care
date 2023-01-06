@@ -35,7 +35,15 @@ class Measure(TimeStampedModel, models.Model):
         return self.name
 
 
+class Ingredient(TimeStampedModel, models.Model):
+    name = models.CharField(max_length=100)
+    carb_qty = models.FloatField('Carboidrati')
+
+    def __str__(self):
+        return self.name
+
+
 class PatientMeasure(TimeStampedModel, models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     measure = models.ForeignKey(Measure, on_delete=models.CASCADE)
-    quantity = models.FloatField()
+    quantity = models.FloatField('Quantità')

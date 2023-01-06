@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -6,6 +6,7 @@ from django.forms import modelformset_factory
 from django.conf import settings
 
 from . import models
+from .mixins import RedirectParams, FormErrors, APIMixin
 
 
 class PatientDetailView(DetailView):
@@ -22,7 +23,6 @@ class PatientCreateView(CreateView):
     fields = ['lastname', 'firstname']
 
     def form_valid(self, form):
-
         # form.instance.author = self.request.user
 
         return super().form_valid(form)
@@ -46,7 +46,6 @@ class MeasureCreateView(CreateView):
     fields = ['name', 'unit']
 
     def get_success_url(self):
-
         return reverse_lazy('measure-detail', kwargs={'pk': self.object.pk})
 
 
@@ -55,7 +54,6 @@ class PatientMeasureCreateView(CreateView):
     fields = ['patient', 'measure', 'quantity']
 
     def get_success_url(self):
-
         return reverse_lazy('patient-detail', kwargs={'pk': self.object.pk})
 
 
@@ -83,8 +81,24 @@ class UnitCreateView(CreateView):
     template_name_suffix = '_create_form'
 
     def get_success_url(self):
-
         return reverse_lazy('unit-detail', kwargs={'pk': self.object.pk})
+
+
+class IngredientCreateView(CreateView):
+    model = models.Ingredient
+    fields = ['name', 'carb_qty']
+    template_name_suffix = '_create_form'
+
+    def get_success_url(self):
+        return reverse_lazy('ingredient-detail', kwargs={'pk': self.object.pk})
+
+
+class IngredientDetailView(DetailView):
+    model = models.Ingredient
+
+
+class IngredientListView(ListView):
+    model = models.Ingredient
 
 
 class UnitUpdateView(UpdateView):
@@ -93,12 +107,26 @@ class UnitUpdateView(UpdateView):
     template_name_suffix = '_update_form'
 
     def get_success_url(self):
-
         return reverse_lazy('unit-detail', kwargs={'pk': self.object.pk})
+
+
+class IngredientUpdateView(UpdateView):
+    model = models.Ingredient
+    fields = ['name', 'carb_qty']
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+        return reverse_lazy('ingredient-detail', kwargs={'pk': self.object.pk})
+
+
+class IngredientDeleteView(DeleteView):
+    model = models.Ingredient
+    success_url = reverse_lazy('ingredient-list')
 
 
 class UnitListView(ListView):
     model = models.Unit
+    context_object_name = 'units'
 
 
 class UnitDeleteView(DeleteView):
@@ -107,16 +135,36 @@ class UnitDeleteView(DeleteView):
 
 
 def calculate_insulin(request):
-
-    api_key = settings.SA_API_KEY
+    context = {}
 
     if request.method == 'POST':
-        pass
-    else:
-        pass
+        cat = request.POST.get("cat", None)
+        query = request.POST.get("query", None)
+        if cat and query:
+            # return RedirectParams(url='calc-insulin', params={"cat": cat, "query": query})
+            results = APIMixin(cat=cat, query=query).get_data()
 
-    context = {
-        'form': 'form'
-    }
+            if results:
+                context = {
+                    "results": results,
+                    "cat": cat,
+                    "query": query,
+                }
 
     return render(request, "patient_care/calculate.html", context)
+
+
+def get_ingredient_info(request, ingredient_id):
+
+    cat = 'ingredients-info'
+
+    results = APIMixin(cat=cat, query=False, ingredient_id=ingredient_id).get_data()
+
+    context = {}
+    if results:
+        context = {
+            "results": results,
+            "cat": cat,
+        }
+
+    return render(request, "patient_care/ingredient_form.html", context)
