@@ -2,19 +2,17 @@
 
 <div>
   <div class="container">
+    <a class="btn btn-primary mt-auto" href="{% url 'measure-create'%}"
+    >Aggiungi Misurazione
+  </a>
     <div class="row">
-      {% for patient in patients %}
+      {% for measure in object_list %}
       <div class="card m-2" style="width: 18rem">
-        <div class="card-body d-flex">
-          <h5 class="card-title">{{patient}}</h5>
-          <a class="btn btn-primary mt-auto" href="{% url 'measure-create'%}"
-            >Aggiungi Misurazione
-          </a>
-          <a
-            class="btn btn-primary mt-auto"
-            href="{% url 'measure-list' patient.pk %}"
-            >Visualizza Misurazioni
-          </a>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{measure}}</h5>
+          <p class="card-text">creato il {{object.created|date:"d F, Y"}}</p>
+          <a href="{% url 'measure-update' measure.id %}">Modifica</a>
+          <a href="{% url 'measure-delete' measure.id %}">Cancella</a>
         </div>
       </div>
       {% endfor %}

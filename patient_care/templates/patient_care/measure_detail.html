@@ -1,0 +1,12 @@
+{% extends 'registration/navbar.html' %} {% block content %}
+<div>
+  <div class="card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">{{object}}</h5>
+      <p class="card-text">creato il {{object.created|date:"d F, Y"}}</p>
+      <a href="{% url 'unit-update' object.id %}">Modifica</a>
+      <a href="{% url 'unit-delete' object.id %}">Cancella</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

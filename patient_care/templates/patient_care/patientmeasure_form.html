@@ -1,0 +1,14 @@
+{% extends 'registration/navbar.html' %}
+
+{% block content %}
+  <div class="container mt-3">
+    <form method="POST" class="card p-3 mt-5">
+      {% csrf_token %}
+      <fieldset>
+        <legend>Nuova Misurazione</legend>
+        {{ form.as_p }}
+      </fieldset>
+        <button type="submit" class="btn btn-primary mt-3">Aggiungi</button>
+    </form>
+  </div>
+{% endblock content %}

@@ -7,8 +7,12 @@
       {% for patient in patients %}
       <div class="card m-2" style="width: 18rem">
         <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{patient}}</h5>
-            <a class="btn btn-primary m-auto" href="{% url 'measure-create'%}"
+          <h5 class="card-title">
+            <a href="{% url 'patient-detail' patient.pk%}"
+              >{{patient}}
+            </a>
+            </h5>
+            <a class="btn btn-primary m-auto" href="{% url 'patient-measure-create' patient.pk%}"
               >Aggiungi Misurazione
             </a>
             <a class="btn btn-primary m-auto" href="{% url 'patient-measure-list' patient.pk %}"

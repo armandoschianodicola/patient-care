@@ -133,3 +133,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+SA_API_KEY = os.environ.get('SA_API_KEY', '')
