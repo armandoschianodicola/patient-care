@@ -9,7 +9,7 @@ class PatientMeasureInLine(admin.TabularInline):
 class MeasureAdmin(admin.ModelAdmin):
     inlines = [PatientMeasureInLine]
     extra = 0
-    readonly_fields = ['created', 'modified']
+    # readonly_fields = ['created', 'modified']
 
 
 # Register your models here.

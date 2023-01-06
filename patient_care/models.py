@@ -6,14 +6,14 @@ from django_extensions.db.models import TimeStampedModel
 
 
 # Create your models here.
-class Patient(models.Model):
-    firstname = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
+class Patient(TimeStampedModel, models.Model):
+    firstname = models.CharField('Nome', max_length=100)
+    lastname = models.CharField('Cognome', max_length=100)
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{} {}'.format(self.lastname, self.firstname)
+        return '{} {}.'.format(self.lastname, self.firstname[:1])
 
     def get_absolute_url(self):
 
@@ -34,7 +34,7 @@ class Unit(models.Model):
         return self.name
 
 
-class PatientMeasure(models.Model):
+class PatientMeasure(TimeStampedModel, models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     measure = models.ForeignKey(Measure, on_delete=models.CASCADE)
     quantity = models.FloatField()

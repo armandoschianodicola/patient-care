@@ -1,0 +1,18 @@
+{% extends 'registration/navbar.html' %} {% block content %}
+<div>
+  <div class="card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">{{object}}</h5>
+      <p class="card-text">creato il {{object.created|date:"d F, Y"}}</p>
+      <a class="btn btn-primary mt-auto" href="{% url 'measure-create'%}"
+        >Aggiungi Misurazione
+      </a>
+      <a
+        class="btn btn-primary mt-auto"
+        href="{% url 'measure-list' patient.pk %}"
+        >Visualizza Misurazioni
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

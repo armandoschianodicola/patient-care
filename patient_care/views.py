@@ -7,28 +7,24 @@ from django.forms import modelformset_factory
 from . import models
 
 
-def home(request):
-
-    recipes = models.Recipe.objects.all()
-    context = {
-        'recipes': recipes,
-    }
-    return render(request, "recipes/home.html", context=context)
-
-
 class PatientDetailView(DetailView):
     model = models.Patient
 
 
 class PatientListView(ListView):
     model = models.Patient
-    template_name = 'recipes/home.html'
-    context_object_name = 'recipes'
+    context_object_name = 'patients'
 
 
 class PatientCreateView(CreateView):
     model = models.Patient
-    fields = ['firstname', 'lastname']
+    fields = ['lastname', 'firstname']
+
+    def form_valid(self, form):
+
+        # form.instance.author = self.request.user
+
+        return super().form_valid(form)
 
 
 class PatientUpdateView(UpdateView):
@@ -45,6 +41,11 @@ class MeasureListView(ListView):
 
 
 class MeasureCreateView(CreateView):
+    model = models.Patient
+    fields = ['name', 'quantity', 'unit']
+
+
+class MeasureUpdateView(CreateView):
     model = models.Patient
     fields = ['name', 'quantity', 'unit']
 
