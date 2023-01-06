@@ -1,6 +1,6 @@
 {% extends 'registration/base.html' %} {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="{% url 'patient-list' %}">
+  <a class="navbar-brand" href="{% url 'patient-care-home' %}">
     Home
   </a>
   <button
@@ -17,16 +17,15 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'patient-create' %}"
+        <a class="nav-link" href="{% url 'measure-list' %}"
           >
-          Aggiungi Paziente
+          Misurazioni
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'measure-create' %}"
+        <a class="nav-link" href="{% url 'unit-list' %}"
           >
-          <span class="sr-only">(current)</span>
-          Aggiungi Misurazione
+          Unità di Misura
         </a>
       </li>
     </ul>

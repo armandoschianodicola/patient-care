@@ -4,14 +4,8 @@
     <div class="card-body">
       <h5 class="card-title">{{object}}</h5>
       <p class="card-text">creato il {{object.created|date:"d F, Y"}}</p>
-      <a class="btn btn-primary mt-auto" href="{% url 'measure-create'%}"
-        >Aggiungi Misurazione
-      </a>
-      <a
-        class="btn btn-primary mt-auto"
-        href="{% url 'patient-measure-list' patient.pk %}"
-        >Visualizza Misurazioni
-      </a>
+      <a href="{% url 'unit-update' object.id %}">Modifica</a>
+      <a href="{% url 'unit-delete' object.id %}">Cancella</a>
     </div>
   </div>
 </div>

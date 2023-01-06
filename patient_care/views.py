@@ -50,6 +50,10 @@ class PatientMeasureCreateView(CreateView):
     fields = ['name', 'quantity', 'unit']
 
 
+class PatientMeasureListView(ListView):
+    model = models.PatientMeasure
+
+
 class MeasureUpdateView(UpdateView):
     model = models.Measure
     fields = ['name', 'quantity', 'unit']
@@ -60,6 +64,34 @@ class MeasureDeleteView(DeleteView):
     success_url = reverse_lazy('recipes-home')
 
 
+class UnitDetailView(DetailView):
+    model = models.Unit
+
+
 class UnitCreateView(CreateView):
     model = models.Unit
     fields = ['name']
+    template_name_suffix = '_create_form'
+
+    def get_success_url(self):
+
+        return reverse_lazy('unit-detail', kwargs={'pk': self.object.pk})
+
+
+class UnitUpdateView(UpdateView):
+    model = models.Unit
+    fields = ['name']
+    template_name_suffix = '_update_form'
+
+    def get_success_url(self):
+
+        return reverse_lazy('unit-detail', kwargs={'pk': self.object.pk})
+
+
+class UnitListView(ListView):
+    model = models.Unit
+
+
+class UnitDeleteView(DeleteView):
+    model = models.Unit
+    success_url = 'patient-care-home'

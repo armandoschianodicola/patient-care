@@ -20,14 +20,14 @@ class Patient(TimeStampedModel, models.Model):
         return reverse('patient-detail', kwargs={'pk': self.pk})
 
 
-class Unit(models.Model):
+class Unit(TimeStampedModel, models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-class Measure(models.Model):
+class Measure(TimeStampedModel, models.Model):
     name = models.CharField(max_length=100)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE, null=True)
 
