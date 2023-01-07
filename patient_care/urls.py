@@ -25,4 +25,5 @@ urlpatterns = [
     path('ingredient/<int:pk>/', views.IngredientDetailView.as_view(), name='ingredient-detail'),
     path('ingredient/<int:pk>/', views.IngredientUpdateView.as_view(), name='ingredient-update'),
     path('ingredient/<int:pk>/delete/', views.IngredientDeleteView.as_view(), name='ingredient-delete'),
+    path('report/', views.MeasureChartView.as_view(), name='report-view-chart')
 ]

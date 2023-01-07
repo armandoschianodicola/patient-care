@@ -1,5 +1,7 @@
+import datetime
+
 from django.shortcuts import render, redirect, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.forms import modelformset_factory
@@ -53,12 +55,30 @@ class PatientMeasureCreateView(CreateView):
     model = models.PatientMeasure
     fields = ['patient', 'measure', 'quantity']
 
+    def get_initial(self):
+
+        values = {
+            'patient': self.kwargs.get('pk'),
+        }
+
+        return values
+
     def get_success_url(self):
-        return reverse_lazy('patient-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('patient-detail', kwargs={'pk': self.kwargs.get('pk')})
 
 
 class PatientMeasureListView(ListView):
     model = models.PatientMeasure
+    context_object_name = 'measures'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context.update(
+            field_cols=['Data', 'Misura', 'Valore']
+        )
+
+        return context
 
 
 class MeasureUpdateView(UpdateView):
@@ -168,3 +188,22 @@ def get_ingredient_info(request, ingredient_id):
         }
 
     return render(request, "patient_care/ingredient_form.html", context)
+
+
+class MeasureChartView(TemplateView):
+    template_name = 'patient_care/chart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        dates = []
+        data = []
+        qs = models.PatientMeasure.objects.all()
+        for pm in qs:
+            dates.append(datetime.datetime.timestamp(pm.modified))
+            data.append(pm.quantity)
+        context.update({
+            'dates': dates,
+            'data': data,
+        })
+        return context
