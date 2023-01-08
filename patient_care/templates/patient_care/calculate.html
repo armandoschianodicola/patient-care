@@ -23,5 +23,27 @@
     >
     {% endfor %}
   </div>
+  <!-- <input type="text" id="tags">
+    <script>
+        $(function () {
+            var availableTags = [
+                {% for car in ingredients %}
+                  {{car.name}},
+                {% endfor %}
+            ];
+        $("#tags").autocomplete({
+            source: availableTags
+        });
+        });
+    </script> -->
+    <!-- <form class="add_your_class" method="GET" action="" >
+      <input class="add_your_class" type="search" name="search"> 
+      <button class="add_your_class" type="submit"> Search </button>
+  </form>
+  {% for result in ingredients %}
+   {{ result.name }}
+  {% empty %}
+  <span>add something to show no results</span>
+  {% endfor %} -->
 </div>
 {% endblock content %}

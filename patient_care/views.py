@@ -156,7 +156,9 @@ class UnitDeleteView(DeleteView):
 
 
 def calculate_insulin(request):
-    context = {}
+    context = {
+        'ingredients': models.Ingredient.objects.all()
+    }
 
     if request.method == 'POST':
         cat = request.POST.get("cat", None)
@@ -166,11 +168,11 @@ def calculate_insulin(request):
             results = APIMixin(cat=cat, query=query).get_data()
 
             if results:
-                context = {
+                context.update({
                     "results": results,
                     "cat": cat,
                     "query": query,
-                }
+                })
 
     return render(request, "patient_care/calculate.html", context)
 
@@ -209,11 +211,14 @@ class MeasureChartView(TemplateView):
                 'borderColor': 'rgb{}'.format(tuple(random.choices(range(256), k=3))),
             }
             for filtered in filtered_qs:
-                dates.append(datetime.datetime.timestamp(filtered.modified))
-                datasets_values.get('data', []).append(filtered.quantity)
+                dates.append(filtered.modified.strftime('%d/%m/%Y %H:%M:%S'))
+                datasets_values.get('data', []).append({
+                    'x': filtered.modified.strftime('%d/%m/%Y'),
+                    'y': filtered.quantity
+                })
             datasets.append(datasets_values)
         context.update({
-            'dates': dates,
+            'labels': dates,
             'datasets': datasets,
         })
 

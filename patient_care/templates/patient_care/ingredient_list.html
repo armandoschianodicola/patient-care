@@ -10,6 +10,16 @@
       <div class="card m-2" style="width: 18rem">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ingredient}}</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Carboidrati</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>{{ingredient.carb_qty}}</td>
+            </tr>
+          </table>
           <p class="card-text">creato il {{object.created|date:"d F, Y"}}</p>
           <a href="{% url 'ingredient-update' ingredient.id %}">Modifica</a>
           <a href="{% url 'ingredient-delete' ingredient.id %}">Cancella</a>

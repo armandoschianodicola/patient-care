@@ -23,7 +23,7 @@ urlpatterns = [
     path('ingredient/', views.IngredientListView.as_view(), name='ingredient-list'),
     path('ingredient/create', views.IngredientCreateView.as_view(), name='ingredient-create'),
     path('ingredient/<int:pk>/', views.IngredientDetailView.as_view(), name='ingredient-detail'),
-    path('ingredient/<int:pk>/', views.IngredientUpdateView.as_view(), name='ingredient-update'),
+    path('ingredient/<int:pk>/update', views.IngredientUpdateView.as_view(), name='ingredient-update'),
     path('ingredient/<int:pk>/delete/', views.IngredientDeleteView.as_view(), name='ingredient-delete'),
     path('report/', views.MeasureChartView.as_view(), name='report-view-chart')
 ]
