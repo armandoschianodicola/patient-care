@@ -1,4 +1,5 @@
 import datetime
+import random
 
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -197,13 +198,23 @@ class MeasureChartView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         dates = []
-        data = []
+        datasets = []
+        measures = models.PatientMeasure.objects.values_list('measure', flat=True).distinct()
         qs = models.PatientMeasure.objects.all()
-        for pm in qs:
-            dates.append(datetime.datetime.timestamp(pm.modified))
-            data.append(pm.quantity)
+        for measure in measures:
+            filtered_qs = qs.filter(measure=measure)
+            datasets_values = {
+                'label': models.Measure.objects.get(id=measure).name,
+                'data': [],
+                'borderColor': 'rgb{}'.format(tuple(random.choices(range(256), k=3))),
+            }
+            for filtered in filtered_qs:
+                dates.append(datetime.datetime.timestamp(filtered.modified))
+                datasets_values.get('data', []).append(filtered.quantity)
+            datasets.append(datasets_values)
         context.update({
             'dates': dates,
-            'data': data,
+            'datasets': datasets,
         })
+
         return context
