@@ -1,4 +1,7 @@
 {% extends 'registration/navbar.html' %} {% block content %}
+
+{% load static %}
+
 <div class="container">
   <form id="apiform" method="POST">
     {% csrf_token %}
@@ -23,6 +26,15 @@
     >
     {% endfor %}
   </div>
+  <div class="controls">
+    <a href="#" id="add-field">Aggiungi alimento</a>
+  </div>
+  <div class="controls">
+    <a href="#" id="remove-field">Rimuovi alimento</a>
+  </div>
+  <div id="ingredient-list">
+    <input type="text" name="ingredient[]" id="">
+  </div>
   <!-- <input type="text" id="tags">
     <script>
         $(function () {
@@ -46,4 +58,5 @@
   <span>add something to show no results</span>
   {% endfor %} -->
 </div>
+<script src="{% static 'js/manage_list.js' %}"></script>
 {% endblock content %}

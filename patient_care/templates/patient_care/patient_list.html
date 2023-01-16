@@ -2,6 +2,9 @@
 
 <div>
   <div class="container">
+    <a class="btn btn-primary mt-auto" href="{% url 'patient-create'%}"
+      >Aggiungi Paziente
+    </a>
     <div class="row">
       {% for patient in patients %}
       <div class="card m-2" style="width: 18rem">
