@@ -3,7 +3,7 @@
 {% load static %}
 
 <div class="container">
-  <form id="apiform" method="POST">
+  <!-- <form id="apiform" method="POST">
     {% csrf_token %}
 
     <label for="username">Seleziona Categoria</label>
@@ -18,23 +18,41 @@
     <input type="search" id="query" name="query" />
 
     <button type="submit">Submit</button>
-  </form>
-  <div class="list-group">
+  </form> -->
+  <!-- <div class="list-group">
     {% for result in results %}
     <a href="{% url 'ingredient-info' result.id%}" class="list-group-item list-group-item-action"
       >{{result.name}} <button class="btn btn-primary mt-3">Richiedi Info</button></a
     >
     {% endfor %}
+  </div> -->
+  <div class="btn btn-dark mt-2">
+    <a class="control-field" href="#" id="add-field">Aggiungi alimento</a>
   </div>
-  <div class="controls">
-    <a href="#" id="add-field">Aggiungi alimento</a>
+  <div class="btn btn-dark mt-2">
+    <a class="control-field" href="#" id="remove-field">Rimuovi alimento</a>
+  </div> 
+  <div class="card mt-5">
+    <div class="card-header">
+      <h5>Calcola Insulina</h5>
+    </div>
+    <div class="card-body" id="ingredient-list">
+      <div class="form-row d-flex justify-content-between" id="row1">
+        <div class="form-group col-md-4">
+          <input type="text" placeholder="Aggiungi ingrediente">
+        </div>
+        <div class="form-group col-md-4">
+          <input type="number" placeholder="Aggiungi quantità">
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="controls">
-    <a href="#" id="remove-field">Rimuovi alimento</a>
-  </div>
-  <div id="ingredient-list">
-    <input type="text" name="ingredient[]" id="">
-  </div>
+  <!-- <div id="ingredient-list">
+    <div class="autocomplete">
+      <input type="text" name="ingredient[]" placeholder="Add new field" class="ingredient-input">
+      <input type="number" name="ingredient[]" placeholder="Add Quantity" class="ingredient-input">
+    </div>
+  </div> -->
   <!-- <input type="text" id="tags">
     <script>
         $(function () {
@@ -58,5 +76,6 @@
   <span>add something to show no results</span>
   {% endfor %} -->
 </div>
-<script src="{% static 'js/manage_list.js' %}"></script>
+{{ ingredients_json|json_script:"mydata" }}
+<script type="text/javascript" src="{% static 'js/manage_list.js' %}"></script>
 {% endblock content %}

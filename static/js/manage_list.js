@@ -1,24 +1,39 @@
 var ingredient_list = document.getElementById("ingredient-list");
 var add_fields = document.getElementById("add-field");
 var remove_fields = document.getElementById("remove-field");
-console.log("test");
+const mydata = JSON.parse(document.getElementById('mydata').textContent);
 
 add_fields.onclick = function () {
-  var newField = document.createElement("input");
+  var newDiv = document.createElement("div");
+  var newFieldText = document.createElement("input");
+  var newFieldNum = document.createElement("input");
+
+  newDiv.setAttribute('class', 'form-row d-flex justify-content-between');
+
   attrs = {
     type: "text",
     name: "ingredient[]",
-    placeholder: "Add new field",
+    placeholder: "Aggiungi ingrediente",
+    class: "form-group col-md-4 autocomplete",
   };
   for (attr in attrs) {
-    newField.setAttribute(attr, attrs[attr]);
+    newFieldText.setAttribute(attr, attrs[attr]);
   }
-  ingredient_list.appendChild(newField);
+  attrs = {
+    type: "number",
+    name: "ingredient[]",
+    placeholder: "Aggiunti Quantità",
+    class: "form-group col-md-4 autocomplete",
+  };
+  for (attr in attrs) {
+    newFieldNum.setAttribute(attr, attrs[attr]);
+  }
+  newDiv.appendChild(newFieldText);
+  newDiv.appendChild(newFieldNum);
+  ingredient_list.appendChild(newDiv);
 };
 
 remove_fields.onclick = function () {
-  var input_fields = ingredient_list.getElementsByTagName("input");
-  if (input_fields.length > 2) {
+  var input_fields = ingredient_list.getElementsByClassName("autocomplete");
     ingredient_list.removeChild(input_fields[input_fields.length - 1]);
-  }
 };

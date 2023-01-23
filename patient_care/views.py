@@ -1,5 +1,6 @@
 import datetime
 import random
+import json
 
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -7,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.forms import modelformset_factory
 from django.conf import settings
+from django.core import serializers
 
 from . import models
 from .mixins import RedirectParams, FormErrors, APIMixin
@@ -156,8 +158,12 @@ class UnitDeleteView(DeleteView):
 
 
 def calculate_insulin(request):
+    
+    ingredients = models.Ingredient.objects.all()
+
     context = {
-        'ingredients': models.Ingredient.objects.all()
+        'ingredients': ingredients,
+        'ingredients_json': serializers.serialize('json', ingredients)
     }
 
     if request.method == 'POST':
