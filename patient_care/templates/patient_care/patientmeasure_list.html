@@ -1,23 +1,30 @@
 {% extends 'registration/navbar.html' %} {% block content %}
 
-<h5>{{pk}}</h5>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="{% url 'patient-detail' patient.pk%}">{{patient}} </a>
+      </h5>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            {% for field_col in field_cols %}
+            <th>{{field_col}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
 
-<table class="table">
-  <thead>
-    <tr>
-      {% for field_col in field_cols %}
-      <th>{{field_col}}</th>
-      {% endfor %}
-    </tr>
-  </thead>
-
-  {% for patient_measure in measures %}
-  <tr>
-    <td>{{patient_measure.modified}}</td>
-    <td>{{patient_measure.measure}}</td>
-    <td>{{patient_measure.quantity}}</td>
-  </tr>
-  {% endfor %}
-</table>
+        {% for patient_measure in measures %}
+        <tr>
+          <td>{{patient_measure.modified}}</td>
+          <td>{{patient_measure.measure}}</td>
+          <td>{{patient_measure.quantity}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

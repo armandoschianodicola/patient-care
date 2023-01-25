@@ -78,7 +78,8 @@ class PatientMeasureListView(ListView):
         context = super().get_context_data(**kwargs)
 
         context.update(
-            field_cols=['Data', 'Misura', 'Valore']
+            field_cols=['Data', 'Misura', 'Valore'],
+            patient=models.Patient.objects.get(pk=self.kwargs.get('pk'))
         )
 
         return context

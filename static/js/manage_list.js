@@ -1,6 +1,7 @@
 var ingredient_list = document.getElementById("ingredient-list");
 var add_fields = document.getElementById("add-field");
 var remove_fields = document.getElementById("remove-field");
+var calculate_fields = document.getElementById("calculate");
 const mydata = JSON.parse(document.getElementById('mydata').textContent);
 
 add_fields.onclick = function () {
@@ -36,4 +37,9 @@ add_fields.onclick = function () {
 remove_fields.onclick = function () {
   var input_fields = ingredient_list.getElementsByClassName("autocomplete");
     ingredient_list.removeChild(input_fields[input_fields.length - 1]);
+};
+
+calculate_fields.onclick = function () {
+  var input_fields = ingredient_list.getElementsByClassName("autocomplete");
+    ;
 };
