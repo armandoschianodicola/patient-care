@@ -71,7 +71,7 @@ class PatientMeasureCreateView(CreateView):
 
 
 class PatientMeasureListView(ListView):
-    model = models.PatientMeasure
+    queryset = models.PatientMeasure.objects.all().order_by('-modified')
     context_object_name = 'measures'
 
     def get_context_data(self, *, object_list=None, **kwargs):

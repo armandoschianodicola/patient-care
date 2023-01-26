@@ -1,10 +1,10 @@
 {% extends 'registration/navbar.html' %} {% block content %}
 
 <div>
+  <a class="btn btn-primary mx-3 my-3" href="{% url 'measure-create'%}"
+    >Aggiungi Misurazione
+  </a>
   <div class="container">
-    <a class="btn btn-primary mt-auto" href="{% url 'measure-create'%}"
-      >Aggiungi Misurazione
-    </a>
     <div class="row">
       {% for measure in object_list %}
       <div class="card m-2" style="width: 18rem">
