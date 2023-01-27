@@ -40,6 +40,13 @@ remove_fields.onclick = function () {
 };
 
 calculate_fields.onclick = function () {
-  var input_fields = ingredient_list.getElementsByClassName("autocomplete");
-    ;
+  var input_fields = ingredient_list.getElementsByClassName("autocomplete")
+  var input_fields = Array.from(input_fields).filter(
+    i => i.type == 'number'
+  );
+  var result = 0.0
+  for (let i = 0; i < input_fields.length; i++) {
+    result += parseInt(input_fields[i].value)
+  }
+  document.getElementById('result').value = result;
 };
