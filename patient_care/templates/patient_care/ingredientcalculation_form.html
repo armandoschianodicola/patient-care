@@ -1,0 +1,60 @@
+{% extends 'registration/navbar.html' %} {% block content %} {% load static %}
+
+<div class="container">
+  <button id="add-field" type="submit" class="btn btn-dark mt-2">Aggiungi alimento</button>
+  <button id="remove-field" type="submit" class="btn btn-dark mt-2">Rimuovi alimento</button>
+  <div class="card mt-5">
+    <div class="card-header">
+      <h5>Calcola Insulina</h5>
+    </div>
+    <div class="card-body" id="ingredient-list">
+      <form method="POST">
+        {% csrf_token %}
+        <!-- <fieldset>
+          {{ form.as_div }}
+        </fieldset> -->
+      </form>
+      <div class="form-row d-flex justify-content-between" id="row1">
+        <div class="form-group col-md-4 autocomplete">
+          {{ form.ingredient }}
+        </div>
+        <div class="form-group col-md-4 autocomplete">
+          {{ form.quantity }}
+        </div>
+      </div>
+    </div>
+    <button id="calculate" type="submit" class="btn btn-primary mt-3">Calcola</button>
+    Total : <input type="text" name="total" id="result"/>
+  </div>
+  <!-- <div id="ingredient-list">
+    <div class="autocomplete">
+      <input type="text" name="ingredient[]" placeholder="Add new field" class="ingredient-input">
+      <input type="number" name="ingredient[]" placeholder="Add Quantity" class="ingredient-input">
+    </div>
+  </div> -->
+  <!-- <input type="text" id="tags">
+    <script>
+        $(function () {
+            var availableTags = [
+                {% for car in ingredients %}
+                  {{car.name}},
+                {% endfor %}
+            ];
+        $("#tags").autocomplete({
+            source: availableTags
+        });
+        });
+    </script> -->
+  <!-- <form class="add_your_class" method="GET" action="" >
+      <input class="add_your_class" type="search" name="search"> 
+      <button class="add_your_class" type="submit"> Search </button>
+  </form>
+  {% for result in ingredients %}
+   {{ result.name }}
+  {% empty %}
+  <span>add something to show no results</span>
+  {% endfor %} -->
+</div>
+{{ ingredients_json|json_script:"mydata" }}
+<script type="text/javascript" src="{% static 'js/manage_list.js' %}"></script>
+{% endblock content %}

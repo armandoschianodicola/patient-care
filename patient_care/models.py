@@ -47,3 +47,8 @@ class PatientMeasure(TimeStampedModel, models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     measure = models.ForeignKey(Measure, on_delete=models.CASCADE)
     quantity = models.FloatField('Quantità')
+
+
+class IngredientCalculation(TimeStampedModel, models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.FloatField('Quantità')

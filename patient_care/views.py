@@ -1,16 +1,12 @@
-import datetime
 import random
-import json
 
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
-from django.forms import modelformset_factory
-from django.conf import settings
 from django.core import serializers
 
-from . import models
+from . import models, forms
 from .mixins import RedirectParams, FormErrors, APIMixin
 
 
@@ -230,3 +226,8 @@ class MeasureChartView(TemplateView):
         })
 
         return context
+
+
+class IngredientCalculationView(FormView):
+    template_name = 'patient_care/ingredientcalculation_form.html'
+    form_class = forms.IngredientCalculationForm
