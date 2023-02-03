@@ -228,6 +228,14 @@ class MeasureChartView(TemplateView):
         return context
 
 
-class IngredientCalculationView(FormView):
+class IngredientCalculationView(TemplateView):
     template_name = 'patient_care/ingredientcalculation_form.html'
-    form_class = forms.IngredientCalculationForm
+
+    def get(self, *args, **kwargs):
+
+        formset = forms.IngredientCalculationFormSet(
+            queryset=models.IngredientCalculation.objects.none()
+        )
+        return self.render_to_response(
+            {'ingredient_calc_formset': formset}
+        )
