@@ -236,6 +236,16 @@ class IngredientCalculationView(TemplateView):
         formset = forms.IngredientCalculationFormSet(
             queryset=models.IngredientCalculation.objects.none()
         )
-        return self.render_to_response(
-            {'ingredient_calc_formset': formset}
-        )
+        return self.render_to_response({
+            'ingredient_calc_formset': formset
+        })
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        formset = forms.IngredientCalculationFormSet(request.POST)
+        context.update({
+            'ingredient_calc_formset': formset
+        })
+
+        return self.render_to_response(context)

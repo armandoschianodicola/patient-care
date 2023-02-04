@@ -11,49 +11,33 @@
     <div class="card-header">
       <h5>Calcola Insulina</h5>
     </div>
-    <div class="card-body" id="form-container">
-      <form method="POST">
+    <div class="card-body" >
+      <form method="POST" id="form-container">
         {% csrf_token %} {{ingredient_calc_formset.management_form}}
-        <div class="form-row d-flex justify-content-between" id="row1">
+        <div class="form-row d-flex mx-5" id="row1">
           {% for form in ingredient_calc_formset %}
-          <div class="form-group col-md-4 autocomplete">{{ form }}</div>
+          <div class="form-group autocomplete">{{ form }}</div>
           {% endfor %}
+        </div>
+        <button id="calculate" type="submit" class="btn btn-primary my-3 mx-5">
+          Calcola
+        </button>
+        <div class="d-flex flew-row mx-5">
+          <label for="total_grams">Grammi Totali:</label>
+          <input type="text" class="form-control" id="total_grams" />
+        </div>
+        <div class="d-flex flew-row mx-5">
+          <label for="total_grams">Carboidrati Totali:</label>
+          <input type="text" class="form-control" id="total_c:arbs" />
+        </div>
+        <div class="d-flex flew-row mx-5">
+          <label for="insulin_value">Insulina Suggerita:</label>
+          <input type="text" class="form-control" id="insulin_value" />
         </div>
       </form>
     </div>
-    <button id="calculate" type="submit" class="btn btn-primary mt-3">
-      Calcola
-    </button>
-    Total : <input type="text" name="total" id="result" />
+    
   </div>
-  <!-- <div id="ingredient-list">
-    <div class="autocomplete">
-      <input type="text" name="ingredient[]" placeholder="Add new field" class="ingredient-input">
-      <input type="number" name="ingredient[]" placeholder="Add Quantity" class="ingredient-input">
-    </div>
-  </div> -->
-  <!-- <input type="text" id="tags">
-    <script>
-        $(function () {
-            var availableTags = [
-                {% for car in ingredients %}
-                  {{car.name}},
-                {% endfor %}
-            ];
-        $("#tags").autocomplete({
-            source: availableTags
-        });
-        });
-    </script> -->
-  <!-- <form class="add_your_class" method="GET" action="" >
-      <input class="add_your_class" type="search" name="search"> 
-      <button class="add_your_class" type="submit"> Search </button>
-  </form>
-  {% for result in ingredients %}
-   {{ result.name }}
-  {% empty %}
-  <span>add something to show no results</span>
-  {% endfor %} -->
 </div>
 {{ ingredients_json|json_script:"mydata" }}
 <script type="text/javascript" src="{% static 'js/manage_list.js' %}"></script>

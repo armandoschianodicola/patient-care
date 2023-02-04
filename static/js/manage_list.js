@@ -43,7 +43,7 @@ let formRow = document.querySelectorAll(".form-row");
 let container = document.querySelector("#form-container");
 let addButton = document.querySelector("#add-form");
 let totalForms = document.querySelector("#id_form-TOTAL_FORMS");
-var calculate_fields = document.getElementById("calculate");
+let calculate_fields = document.querySelector("#calculate");
 
 let formNum = formRow.length - 1;
 addButton.addEventListener("click", addForm);
@@ -57,6 +57,9 @@ function addForm(e) {
   formNum++;
   newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`);
   container.appendChild(newForm);
+  console.log(calculate_fields.parentNode)
+  container.insertBefore(calculate_fields, newForm);
+
 
   totalForms.setAttribute("value", `${formNum + 1}`);
 }
@@ -66,7 +69,6 @@ calculate_fields.onclick = function () {
 
   var result = 0.0;
   for (let i = 0; i < input_fields.length; i++) {
-    console.log(input_fields[i].value);
     if (input_fields[i].value) {
       result += parseInt(input_fields[i].value);
     }
