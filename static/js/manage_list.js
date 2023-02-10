@@ -50,8 +50,13 @@ addButton.addEventListener("click", addForm);
 
 function addForm(e) {
   e.preventDefault();
+  console.log('formRow', formRow)
 
   let newForm = formRow[0].cloneNode(true);
+  console.log(newForm)
+  // for (var i = 0; i < newForm.childNodes.length; i++) {
+  //   newForm.childNodes[i].innerHTML = "";
+  // }
   let formRegex = RegExp(`form-(\\d){1}-`, "g");
 
   formNum++;
